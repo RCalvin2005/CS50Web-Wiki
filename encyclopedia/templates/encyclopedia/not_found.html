@@ -1,0 +1,10 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Error 404
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-danger font-weight-bold">404</h1>
+    <p>The following entry <span class="font-weight-bold">/{{ title }}</span> does not exist.</p>
+{% endblock %}
