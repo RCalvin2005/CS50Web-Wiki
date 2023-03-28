@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from . import util
 from markdown2 import markdown
-
+from random import choice
 
 def index(request):
     """ Displays list of all entries """
@@ -65,3 +65,12 @@ def search(request):
     else:
         # Redirect to index if /search URL is visited
         return HttpResponseRedirect(reverse("index"))
+
+
+def random(request):
+    """ Redirects to random entry page """
+
+    entries = util.list_entries()
+
+    return HttpResponseRedirect(reverse("entry", args=[choice(entries)]))
+
