@@ -1,0 +1,20 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="mb-3">There are no pages with the title <span class="font-weight-bold">{{ q }}</span></h1>
+
+    <h5>Are you perhaps looking for one of the following?</h5>
+    <ul>
+        {% for match in matches %}
+            <li><a href="{% url 'entry' match %}">{{ match }}</a></li>
+        {% empty%}
+            <p class="text-danger font-weight-bold">No Search Matches.</p>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

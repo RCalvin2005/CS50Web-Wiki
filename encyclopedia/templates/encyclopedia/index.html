@@ -8,6 +8,7 @@
     <h1>All Pages</h1>
 
     <ul>
+        <!-- https://www.geeksforgeeks.org/url-django-template-tag/ -->
         {% for entry in entries %}
             <li><a href="{% url 'entry' entry %}">{{ entry }}</a></li>
         {% endfor %}
