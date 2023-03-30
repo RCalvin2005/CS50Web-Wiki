@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load widget_tweaks %}
 
 {% block title %}
     Edit Page
@@ -14,9 +15,19 @@
         </div>
     {% endif %}
 
+    <!-- https://simpleisbetterthancomplex.com/article/2017/08/19/how-to-render-django-form-manually.html -->
     <form action="{% url 'edit' title %}" method="post">
         {% csrf_token %}
-        {{ form }}
+        
+        <div class="form-container">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                </div>
+            {% endfor %}            
+        </div>
+
         <input class="btn btn-primary" type="submit" value="Save">
     </form>
 
