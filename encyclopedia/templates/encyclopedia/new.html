@@ -1,4 +1,5 @@
 {% extends "encyclopedia/layout.html" %}
+{% load widget_tweaks %}
 
 {% block title %}
     Create New Page
@@ -16,10 +17,21 @@
 
     <form action="{% url 'new' %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input class="btn btn-primary" type="submit" value="Save">
-    </form>
+        
+        <div class="form-container">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                </div>
+            {% endfor %}
 
-    <a href="{% url 'index' %}" class="btn btn-danger" role="button">Cancel</a>
+            <div class="d-flex">
+                <input class="btn btn-primary" type="submit" value="Save">
+                <a href="{% url 'index' %}" class="btn btn-danger ml-auto" role="button">Cancel</a>
+            </div>            
+            
+        </div>
+    </form>
 
 {% endblock %}

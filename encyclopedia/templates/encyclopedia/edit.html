@@ -25,12 +25,14 @@
                     {{ field.label_tag }}
                     {% render_field field class="form-control" %}
                 </div>
-            {% endfor %}            
+            {% endfor %}
+
+            <div class="d-flex">
+                <input class="btn btn-primary" type="submit" value="Save">
+                <a href="{% url 'index' %}" class="btn btn-danger ml-auto" role="button">Cancel</a>
+            </div>            
+            
         </div>
-
-        <input class="btn btn-primary" type="submit" value="Save">
     </form>
-
-    <a href="{% url 'index' %}" class="btn btn-danger" role="button">Cancel</a>
 
 {% endblock %}
