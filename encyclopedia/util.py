@@ -45,10 +45,12 @@ def convert(markdown):
 
     # Headings
     html = re.sub(
-        r"# *(.+?)(?:\n+|$)",
-        r"<h1>\1<\\h1>\n",
+        r"(#+) *(.+?)(?:\n+|$)",
+        heading,
         markdown
     )
+
+    # print(convert("# Test\n ## Test 2\n###Test 3\n#### Test 4"))
 
     return html
 
@@ -59,3 +61,12 @@ def convert(markdown):
     # Links
 
     # Paragraph
+
+def heading(match):
+    """ Returns replacement str for headings """
+
+    level = len(match.group(1))
+    if level > 6:
+        level = 6
+
+    return f"<h{level}>{match.group(2)}<\h{level}>\n"
