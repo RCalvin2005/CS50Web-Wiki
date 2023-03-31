@@ -50,8 +50,6 @@ def convert(markdown):
         markdown
     )
 
-    # print(convert("# Test\n ## Test 2\n###Test 3\n#### Test 4"))
-
     # Boldface
     html = re.sub(
         r"\*\*(.*?)\*\*",
@@ -64,7 +62,19 @@ def convert(markdown):
         r"<strong>\1</strong>",
         html
     )
-    # Unordered List
+
+    # Unordered List (no nesting)
+    html = re.sub(
+        r"[\*\+-] (.*)(?:\n+|$)",
+        r"<li>\1</li>\n",
+        html
+    )
+
+    html = re.sub(
+        r"(<li>[\s\S]+<\/li>)",
+        r"\n<ul>\n\1\n</ul>\n",
+        html,
+    )
 
     # Links
 
