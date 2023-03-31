@@ -38,7 +38,7 @@ def entry(request, title):
     # Render page content
     return render(request, "encyclopedia/entry.html", {
         "title": title,
-        "content": markdown(content)
+        "content": util.convert(content)
     })
 
 

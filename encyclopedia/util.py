@@ -52,15 +52,26 @@ def convert(markdown):
 
     # print(convert("# Test\n ## Test 2\n###Test 3\n#### Test 4"))
 
-    return html
-
     # Boldface
+    html = re.sub(
+        r"\*\*(.*?)\*\*",
+        r"<strong>\1</strong>",
+        html
+    )
 
+    html = re.sub(
+        r"__(.*?)__",
+        r"<strong>\1</strong>",
+        html
+    )
     # Unordered List
 
     # Links
 
     # Paragraph
+
+    return html
+
 
 def heading(match):
     """ Returns replacement str for headings """
@@ -69,4 +80,4 @@ def heading(match):
     if level > 6:
         level = 6
 
-    return f"<h{level}>{match.group(2)}<\h{level}>\n"
+    return f"<h{level}>{match.group(2)}</h{level}>\n"

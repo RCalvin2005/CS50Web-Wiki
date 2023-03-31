@@ -5,3 +5,6 @@
 
 
 #### Test 4
+
+__bold__
+**Also Bold**
