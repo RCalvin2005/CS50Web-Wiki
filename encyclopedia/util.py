@@ -35,3 +35,27 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def convert(markdown):
+    """ Converts markdown to HTML """
+
+    # https://www.pythontutorial.net/python-regex/python-regex-sub/
+    # https://stackoverflow.com/questions/44757825/python-regex-for-end-of-line
+
+    # Headings
+    html = re.sub(
+        r"# *(.+?)(?:\n+|$)",
+        r"<h1>\1<\\h1>\n",
+        markdown
+    )
+
+    return html
+
+    # Boldface
+
+    # Unordered List
+
+    # Links
+
+    # Paragraph
