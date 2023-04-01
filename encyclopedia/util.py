@@ -41,12 +41,18 @@ def convert(markdown):
     """ Converts markdown to HTML """
 
     # https://www.pythontutorial.net/python-regex/python-regex-sub/
+    
+    html = re.sub(
+        r"\r",
+        "",
+        markdown,
+    )
 
     # Headings
     html = re.sub(
         r"^(#+) *(.+)$",
         heading,
-        markdown,
+        html,
         flags=re.MULTILINE
     )
 
@@ -54,28 +60,28 @@ def convert(markdown):
     html = re.sub(
         r"\*\*(.*?)\*\*",
         r"<strong>\1</strong>",
-        html
+        html,
+        flags=re.DOTALL
     )
 
     html = re.sub(
         r"__(.*?)__",
         r"<strong>\1</strong>",
-        html
-    )
-
-    # Unordered List (no nesting)
-    html = re.sub(
-        r"[\*\+-] (.*)(?:\n+|$)",
-        r"<li>\1</li>\n",
-        html
-    )
-
-    html = re.sub(
-        r"(<li>.*<\/li>)",
-        r"\n<ul>\n\1\n</ul>\n",
         html,
         flags=re.DOTALL
     )
+
+    # https://stackoverflow.com/questions/44757825/python-regex-for-end-of-line
+
+    # Unordered List (no nesting)
+    html = re.sub(
+        r"(?:^|\n\n+)([\*\+-] +.*?)(?:\n\n+|$)",
+        ul,
+        html,
+        flags=re.DOTALL
+    )
+
+
 
     # Links
 
@@ -92,3 +98,25 @@ def heading(match):
         level = 6
 
     return f"<h{level}>{match.group(2)}</h{level}>\n"
+
+
+def ul(match):
+    """ Returns replacement str for lists """
+    
+    with open("test.html", "a") as f:
+        f.write("UL Triggered")
+
+    markdown = match.group(1)
+
+    list_items = re.sub(
+        r"[\*\+-] +([^\*\+-]*)(?:\n|$)",
+        r"<li>\1</li>\n",
+        markdown,
+        flags=re.DOTALL
+    )
+
+    return f"\n\n<ul>\n{list_items}</ul>\n\n"
+
+"""
+print(convert("Text\n* One\n\nText\n\n* One\n\nAnother Text\n\n* One\n- Two\n+ Three\nFour\n"))
+"""
