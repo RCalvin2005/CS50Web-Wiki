@@ -41,13 +41,13 @@ def convert(markdown):
     """ Converts markdown to HTML """
 
     # https://www.pythontutorial.net/python-regex/python-regex-sub/
-    # https://stackoverflow.com/questions/44757825/python-regex-for-end-of-line
 
     # Headings
     html = re.sub(
-        r"(#+) *(.+?)(?:\n+|$)",
+        r"^(#+) *(.+)$",
         heading,
-        markdown
+        markdown,
+        flags=re.MULTILINE
     )
 
     # Boldface
@@ -71,9 +71,10 @@ def convert(markdown):
     )
 
     html = re.sub(
-        r"(<li>[\s\S]+<\/li>)",
+        r"(<li>.*<\/li>)",
         r"\n<ul>\n\1\n</ul>\n",
         html,
+        flags=re.DOTALL
     )
 
     # Links
