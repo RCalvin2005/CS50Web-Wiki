@@ -81,8 +81,6 @@ def convert(markdown):
         flags=re.DOTALL
     )
 
-
-
     # Links
 
     # Paragraph
@@ -116,7 +114,3 @@ def ul(match):
     )
 
     return f"\n\n<ul>\n{list_items}</ul>\n\n"
-
-"""
-print(convert("Text\n* One\n\nText\n\n* One\n\nAnother Text\n\n* One\n- Two\n+ Three\nFour\n"))
-"""
