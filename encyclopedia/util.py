@@ -100,14 +100,11 @@ def heading(match):
 
 def ul(match):
     """ Returns replacement str for lists """
-    
-    with open("test.html", "a") as f:
-        f.write("UL Triggered")
 
     markdown = match.group(1)
 
     list_items = re.sub(
-        r"[\*\+-] +([^\*\+-]*)(?:\n|$)",
+        r"[\*\+-] +(.*?)(?:\n(?=[\*\+-])|$)",
         r"<li>\1</li>\n",
         markdown,
         flags=re.DOTALL

@@ -11,7 +11,7 @@ Text
 
 Another Text
 
-* One
+* One * Another
 - Two
 + Three
 Four
