@@ -82,8 +82,22 @@ def convert(markdown):
     )
 
     # Links
+    html = re.sub(
+        r"\[(.*?)\]\((.*?)\)",
+        r"<a href='\2'>\1</a>",
+        html
+    )
+
+    # https://stackoverflow.com/questions/20089922/python-regex-engine-look-behind-requires-fixed-width-pattern-error
+    # https://learnbyexample.github.io/tips/python-tip-12/
 
     # Paragraph
+    html = re.sub(
+        r"(?:(?<=^)|(?<=\n\n))((?!<h\d>|<ul>|<li>).*?)(?:(?=\n\n)|(?=$))",
+        lambda match: f"<p>{match.group(1).strip()}</p>" if match.group(1) else "",
+        html,
+        flags=re.DOTALL
+    )
 
     return html
 
@@ -103,8 +117,10 @@ def ul(match):
 
     markdown = match.group(1)
 
+    # https://docs.python.org/3/library/re.html
+    # Note: (?=...) is to look ahead without consuming the string
     list_items = re.sub(
-        r"[\*\+-] +(.*?)(?:\n(?=[\*\+-])|$)",
+        r"[\*\+-] +(.*?)(?:\n(?=[\*\+-] )|$)",
         r"<li>\1</li>\n",
         markdown,
         flags=re.DOTALL
