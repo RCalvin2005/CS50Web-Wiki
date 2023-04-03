@@ -37,6 +37,10 @@ textarea {
     margin-top: 5px;
 }
 
+#body-container {
+    margin: 0;
+}
+
 .form-container {
     width: 80%;
 }
